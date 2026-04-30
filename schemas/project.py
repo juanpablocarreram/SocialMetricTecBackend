@@ -19,9 +19,11 @@ class Project(BaseModel):
     impact_area: ProjectAreas
     cover_image_url: str
     is_active: bool = True
+    model_config = ConfigDict(from_attributes=True)
+    
 class ProjectFull(Project):
     # Campos que genera la base de datos
     project_id: int
     created_at: datetime 
-    page:Page# O usar tu clase Page si ya la tienes
-    model_config = ConfigDict(from_attributes=True) # Para Pydantic v2
+    page: Optional[Page] = None# O usar tu clase Page si ya la tienes
+    

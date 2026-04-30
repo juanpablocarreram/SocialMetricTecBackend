@@ -1,8 +1,8 @@
 import enum
+from sqlalchemy.orm import Mapped,mapped_column
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Enum, Boolean, JSON, DateTime
 from sqlalchemy.sql import func
 from db.database import Base #
-
 class ProjectAreas(str, enum.Enum):
     educacion = "educacion"
     salud = "salud"
@@ -22,3 +22,16 @@ class Project(Base):
     is_active = Column(Boolean, nullable=False, default=True)
     page = Column(JSON, nullable=True) 
     created_at = Column(DateTime, server_default=func.now())
+
+class Manages(Base):
+    __tablename__ = "manages"
+    username: Mapped[str] = mapped_column(
+        String(100), 
+        ForeignKey("user.username", ondelete="CASCADE", onupdate="CASCADE"), 
+        primary_key=True
+    )
+    
+    project_id: Mapped[int] = mapped_column(
+        ForeignKey("project.project_id", ondelete="CASCADE", onupdate="CASCADE"), 
+        primary_key=True
+    )

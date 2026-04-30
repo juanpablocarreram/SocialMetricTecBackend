@@ -8,5 +8,4 @@ class UserCreate(UserBase):
 
 class UserOut(UserBase):
     is_admin: bool
-    
     model_config = ConfigDict(from_attributes=True)
