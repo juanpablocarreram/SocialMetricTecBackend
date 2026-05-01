@@ -2,7 +2,7 @@ import requests
 def create_project():
     url = 'http://localhost:8000/project/create'
     mi_body = {
-        "project_name":"Best Buddies",
+        "project_name":"New",
         "description": "Proyecto Dedicado a DI",
         "impact_area":"salud",
         "cover_image_url": "localhost:3000",

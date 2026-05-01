@@ -66,3 +66,12 @@ def delete_project_in_db(db: Session, project_id:int, current_user:UserOutSchema
     except Exception as e:
         db.rollback()
         raise e
+def list_all_projects(db:Session):
+    return db.query(
+    Project.project_id,
+    Project.project_name,
+    Project.description,
+    Project.impact_area,
+    Project.cover_image_url,
+    Project.is_active,
+    Project.created_at).all()

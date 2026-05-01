@@ -20,10 +20,10 @@ class Project(BaseModel):
     cover_image_url: str
     is_active: bool = True
     model_config = ConfigDict(from_attributes=True)
-    
-class ProjectFull(Project):
-    # Campos que genera la base de datos
+class ProjectSummary(Project):
     project_id: int
     created_at: datetime 
+class ProjectFull(ProjectSummary):
+    # Campos que genera la base de datos
     page: Optional[Page] = None# O usar tu clase Page si ya la tienes
     
