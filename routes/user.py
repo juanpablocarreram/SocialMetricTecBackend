@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
-from schemas.user import UserCreate, UserLogin, UserOut
+from schemas.user import UserCreate, UserBase, UserOut
 from routes.deps import get_current_user_from_token, get_admin_user
-from crud.user import insert_user_to_db
+""" from crud.user import insert_user_to_db """
 
 router = APIRouter(prefix="/user", tags=["user"])
 
@@ -10,11 +10,11 @@ router = APIRouter(prefix="/user", tags=["user"])
 @router.post("/register", dependencies=[Depends(get_admin_user)])
 async def register(user: UserCreate):
     # Aquí guardarías en DB con await
-    await insert_user_to_db(user)
+    """ await insert_user_to_db(user) """
     return {"message": f"Usuario {user.username} creado por el administrador"}
 
 @router.post("/login")
-async def login(user: UserLogin):
+async def login(user: UserBase):
     return {"token": "tu_jwt_generado"}
 
 @router.get("/me")

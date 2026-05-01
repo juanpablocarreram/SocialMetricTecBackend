@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException,status,Response
 from schemas.project import Project, ProjectFull
 from schemas.user import UserOut
-from crud.project import get_project_from_db, create_project_in_db
+from crud.project import get_project_from_db, create_project_in_db, delete_project_in_db
 from routes.deps import get_current_user_from_token
-from db import get_db
+from db.database import get_db
 
 router = APIRouter(prefix="/project", tags=["project"])
 
@@ -28,6 +28,23 @@ async def create_project(project_info:Project,db = Depends(get_db),user : UserOu
     created_project = create_project_in_db(db,project_info,user)
     return created_project
 
+""" Ruta para eliminar un proyecto existente, solo un lider relacionado al proyecto puede eliminarlo o un admin"""
+@router.delete("/{project_id}/delete")
+def delete_project(project_id: int, db = Depends(get_db), user:UserOut = Depends(get_current_user_from_token)):
+        result = delete_project_in_db(db, project_id, user)
+        if result == "no_encontrado":
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, 
+                detail="El proyecto no existe."
+            )
+        if result == "acceso_denegado":
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, 
+                detail="No tienes permiso para eliminar este proyecto."
+            )
+        # Éxito: 200 OK
+        return {"message": "Proyecto eliminado exitosamente", "project_id": project_id}
+        
 """ Ruta para listar los proyectos, su nombre, descripcion e imagen de preview """
 @router.get("/listpreview")
 async def list_projects_preview():

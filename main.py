@@ -1,10 +1,13 @@
 from fastapi import FastAPI
-from routes import project, user
+from routes.project import router as router_project
+from routes.user import router as router_user
+import models
+
 
 app = FastAPI()
 
-app.include_router(user.router)
-app.include_router(project.router)
+app.include_router(router_user)
+app.include_router(router_project)
 
 @app.get("/")
 def root():

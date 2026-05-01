@@ -39,8 +39,9 @@ CREATE TABLE IF NOT EXISTS project (
     is_active        TINYINT(1)     NOT NULL DEFAULT 1,
     page             JSON,
     created_at       DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP,
- 
-    CONSTRAINT pk_project PRIMARY KEY (project_id)
+
+    CONSTRAINT pk_project PRIMARY KEY (project_id),
+    CONSTRAINT uq_project_name UNIQUE (project_name)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   COLLATE=utf8mb4_unicode_ci;
@@ -166,3 +167,5 @@ CREATE TABLE IF NOT EXISTS project_tag (
 -- ============================================================
 -- END OF SCRIPT
 -- ============================================================
+INSERT INTO user (username, password_hash,email,is_admin)
+VALUES ("root_user","admin_password","juanpacm2511@gmail.com", 1);

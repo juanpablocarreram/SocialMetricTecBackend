@@ -15,7 +15,7 @@ class ProjectAreas(str, enum.Enum):
 class Project(Base):
     __tablename__ = "project"
     project_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    project_name = Column(String(255), nullable=False)
+    project_name = Column(String(255), nullable=False, unique = True)
     description = Column(Text, nullable=True)
     impact_area = Column(String(255), nullable=True) 
     cover_image_url = Column(String(2048), nullable=True)

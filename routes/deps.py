@@ -4,7 +4,7 @@ async def get_current_user_from_token():
     # Aquí iría tu lógica de decodificar el JWT que vimos antes
     """ await fake_async_db_call()  """ # Simula una llamada a DB
     # Por ahora simulamos un usuario recuperado de la DB
-    user_mock = UserOut(username="admin_juan", mail="juan@tec.mx", es_admin=True)
+    user_mock = UserOut(username="root_user", email="juanpacm2511@gmail.com", is_admin=True)
     return user_mock
 
 # 2. Esta usa la anterior para verificar permisos
